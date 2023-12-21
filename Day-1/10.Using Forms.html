@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Sample Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Vue Sample Form</h2>
+
+      <form @submit.prevent="submitForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" v-model="formData.name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" v-model="formData.email" required />
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" v-model="formData.age" required />
+
+        <label for="gender">Gender:</label>
+        <select id="gender" v-model="formData.gender" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <div>
+        <h3>Form Data:</h3>
+        <p>Name: {{ formData.name }}</p>
+        <p>Email: {{ formData.email }}</p>
+        <p>Age: {{ formData.age }}</p>
+        <p>Gender: {{ formData.gender }}</p>
+      </div>
+    </div>
+
+    <script>
+      const app = new Vue({
+        data() {
+          return {
+            formData: {
+              name: "",
+              email: "",
+              age: null,
+              gender: "male",
+            },
+          };
+        },
+        methods: {
+          submitForm() {
+            // Handle form submission logic
+            console.log("Form submitted:", this.formData);
+          },
+        },
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>

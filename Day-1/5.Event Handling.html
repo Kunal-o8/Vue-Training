@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Handling and Dynamic Updates Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+      .counter-container {
+        margin-top: 20px;
+        text-align: center;
+      }
+      button {
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="counter-container">
+        <h2>Counter: {{ counter }}</h2>
+        <button @click="increment">Increment</button>
+        <button @click="decrement">Decrement</button>
+        <button @click="reset">Reset</button>
+      </div>
+    </div>
+
+    <script>
+      const app = new Vue({
+        data() {
+          return {
+            counter: 0,
+          };
+        },
+
+        methods: {
+          increment() {
+            this.counter++;
+          },
+          decrement() {
+            if (this.counter > 0) {
+              this.counter--;
+            }
+          },
+          reset() {
+            this.counter = 0;
+          },
+        },
+
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>

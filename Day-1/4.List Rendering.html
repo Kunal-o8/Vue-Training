@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-for Example</title>
+    <!-- Include Vue.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+      .user {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="user" v-for="user in users" :key="user.id">
+        <h3>{{ user.name }}</h3>
+        <p>Email: {{ user.email }}</p>
+        <p>Role: {{ user.role }}</p>
+      </div>
+    </div>
+
+    <script>
+      const vueApp = new Vue({
+        data() {
+          return {
+            users: [
+              {
+                id: 1,
+                name: "Alice",
+                email: "alice@example.com",
+                role: "Admin",
+              },
+              { id: 2, name: "Bob", email: "bob@example.com", role: "User" },
+              {
+                id: 3,
+                name: "Charlie",
+                email: "charlie@example.com",
+                role: "Moderator",
+              },
+            ],
+          };
+        },
+
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-bind Example</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <body>
+    <div id="app">
+      <img :src="isHighRes ? highResImage : lowResImage" alt="Dynamic Image" />
+    </div>
+
+    <script>
+      const vueApp = new Vue({
+        data() {
+          return {
+            isHighRes: true,
+            highResImage: "https://placekitten.com/800/400",
+            lowResImage: "https://placekitten.com/400/200",
+          };
+        },
+
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>

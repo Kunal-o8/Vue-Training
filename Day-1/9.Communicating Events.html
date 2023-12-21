@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Country and State Dropdown Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Country and State Dropdown Example</h2>
+
+      <country-dropdown
+        @country-selected="handleCountrySelected"
+      ></country-dropdown>
+
+      <state-dropdown
+        :selected-country="selectedCountry"
+        :selected-state="selectedState"
+        @state-selected="handleStateSelected"
+      ></state-dropdown>
+    </div>
+
+    <script>
+      Vue.component("country-dropdown", {
+        data() {
+          return {
+            countries: ["Select a country", "USA", "Canada", "India"],
+            selectedCountry: null,
+          };
+        },
+        template: `
+    <div>
+      <label>Select Country:</label>
+      <select @change="emitCountrySelected">
+        <option v-for="country in countries" :key="country" :value="country">{{ country }}</option>
+      </select>
+    </div>
+  `,
+        methods: {
+          emitCountrySelected(event) {
+            const selectedCountry = event.target.value;
+            if (selectedCountry !== "Select a country") {
+              this.$emit("country-selected", selectedCountry);
+            }
+          },
+        },
+      });
+
+      Vue.component("state-dropdown", {
+        props: ["selectedCountry", "selectedState"],
+        data() {
+          return {
+            statesByCountry: {
+              USA: ["Select a state", "New York", "California", "Texas"],
+              Canada: [
+                "Select a state",
+                "Ontario",
+                "Quebec",
+                "British Columbia",
+              ],
+              India: [
+                "Select a state",
+                "Maharashtra",
+                "Karnataka",
+                "Tamil Nadu",
+              ],
+            },
+            selectedState: null,
+          };
+        },
+        template: `
+    <div v-if="selectedCountry">
+      <label>Select State for {{ selectedCountry }}:</label>
+      <select @change="emitStateSelected">
+        <option v-for="state in statesByCountry[selectedCountry]" :key="state" :value="state">{{ state }}</option>
+      </select>
+    </div>
+    <div v-else>
+      <p>Please select a country first.</p>
+    </div>
+  `,
+        methods: {
+          emitStateSelected(event) {
+            const selectedState = event.target.value;
+            if (selectedState !== "Select a state") {
+              this.$emit("state-selected", selectedState);
+            }
+          },
+        },
+      });
+
+      const app = new Vue({
+        data() {
+          return {
+            selectedCountry: null,
+            selectedState: null,
+          };
+        },
+        methods: {
+          handleCountrySelected(country) {
+            this.selectedCountry = country;
+          },
+          handleStateSelected(state) {
+            this.selectedState = state;
+          },
+        },
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>

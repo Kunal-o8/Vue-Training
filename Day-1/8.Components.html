@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Components and Properties</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Shopping Cart</h2>
+
+      <product-component
+        v-for="(product, index) in products"
+        :key="index"
+        :product="product"
+      ></product-component>
+
+      <p>Total Cost: ${{ totalCost }}</p>
+    </div>
+
+    <script>
+      Vue.component("product-component", {
+        props: ["product"],
+        template: `
+          <div>
+            {{ product.name }} - Price: {{ product.price }} - Quantity:
+            <input type="number" v-model="product.quantity" min="0">
+          </div>
+        `,
+      });
+
+      const app = new Vue({
+        data() {
+          return {
+            products: [
+              { id: 1, name: "Item 1", price: 20, quantity: 0 },
+              { id: 2, name: "Item 2", price: 30, quantity: 0 },
+              { id: 3, name: "Item 3", price: 15, quantity: 0 },
+            ],
+          };
+        },
+
+        computed: {
+          totalCost() {
+            return this.products.reduce((total, product) => {
+              return total + product.price * product.quantity;
+            }, 0);
+          },
+        },
+
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>

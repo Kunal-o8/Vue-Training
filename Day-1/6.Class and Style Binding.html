@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class and Style Binding Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+      .success {
+        color: green;
+      }
+      .error {
+        color: red;
+      }
+      .highlight {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div
+        :class="{ 'success': isSuccess, 'error': !isSuccess, 'highlight': isHighlighted }"
+        :style="{ 'font-size': fontSize + 'px', 'font-weight': fontWeight }"
+      >
+        {{ message }}
+      </div>
+
+      <div>
+        <label>Change Message: <input v-model="message" /></label>
+        <label
+          >Toggle Success: <input type="checkbox" v-model="isSuccess"
+        /></label>
+        <label
+          >Toggle Highlight: <input type="checkbox" v-model="isHighlighted"
+        /></label>
+        <label>Font Size: <input type="number" v-model="fontSize" /></label>
+        <label
+          >Font Weight:
+          <select v-model="fontWeight">
+            <option value="normal">Normal</option>
+            <option value="bold">Bold</option>
+            <option value="lighter">Lighter</option>
+          </select></label
+        >
+      </div>
+    </div>
+
+    <script>
+      const app = new Vue({
+        data() {
+          return {
+            isSuccess: true,
+            isHighlighted: false,
+            message: "Dynamic Styling Example",
+            fontSize: 18,
+            fontWeight: "bold",
+          };
+        },
+
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>
