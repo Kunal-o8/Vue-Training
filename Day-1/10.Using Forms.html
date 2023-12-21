@@ -13,12 +13,15 @@
       <form @submit.prevent="submitForm">
         <label for="name">Name:</label>
         <input type="text" id="name" v-model="formData.name" required />
+        <span v-if="!validateName()">Name is required</span>
 
         <label for="email">Email:</label>
         <input type="email" id="email" v-model="formData.email" required />
+        <span v-if="!validateEmail()">Enter a valid email</span>
 
         <label for="age">Age:</label>
         <input type="number" id="age" v-model="formData.age" required />
+        <span v-if="!validateAge()">Age must be a positive number</span>
 
         <label for="gender">Gender:</label>
         <select id="gender" v-model="formData.gender" required>
@@ -26,8 +29,9 @@
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
+        <span v-if="!validateGender()">Please select a gender</span>
 
-        <button type="submit">Submit</button>
+        <button type="submit" :disabled="!isFormValid()">Submit</button>
       </form>
 
       <div>
@@ -55,6 +59,28 @@
           submitForm() {
             // Handle form submission logic
             console.log("Form submitted:", this.formData);
+          },
+          validateName() {
+            return this.formData.name.trim() !== "";
+          },
+          validateEmail() {
+            // Simple email validation regex
+            const emailRegex = /\S+@\S+\.\S+/;
+            return emailRegex.test(this.formData.email);
+          },
+          validateAge() {
+            return !isNaN(this.formData.age) && this.formData.age > 0;
+          },
+          validateGender() {
+            return this.formData.gender !== "";
+          },
+          isFormValid() {
+            return (
+              this.validateName() &&
+              this.validateEmail() &&
+              this.validateAge() &&
+              this.validateGender()
+            );
           },
         },
         el: "#app",
