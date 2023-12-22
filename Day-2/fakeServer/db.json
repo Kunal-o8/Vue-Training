@@ -1,0 +1,9 @@
+{
+  "employees": [
+    {
+      "name": "Kunal Kaushik",
+      "salary": 4500000,
+      "id": 1
+    }
+  ]
+}
