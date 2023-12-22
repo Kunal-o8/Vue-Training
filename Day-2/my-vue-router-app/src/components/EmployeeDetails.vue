@@ -15,31 +15,27 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import EmployeeService from "../services/EmployeeService";
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 
-export default {
-  data() {
-    return {
-      employee: {},
-    };
-  },
-  mounted() {
-    this.loadEmployee();
-  },
-  methods: {
-    loadEmployee() {
-      const id = this.$route.params.id;
-      EmployeeService.getEmployee(id)
-        .then((response) => {
-          this.employee = response.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching employee details:", error);
-        });
-    },
-  },
+const employee = ref({});
+
+const loadEmployee = () => {
+  const id = useRoute().params.id;
+  EmployeeService.getEmployee(id)
+    .then((response) => {
+      employee.value = response.data;
+    })
+    .catch((error) => {
+      console.error("Error fetching employee details:", error);
+    });
 };
+
+onMounted(() => {
+  loadEmployee();
+});
 </script>
 
 <style scoped>
@@ -64,6 +60,7 @@ export default {
   margin-right: 10px;
   font-weight: bold;
 }
+
 .update-button {
   display: inline-block;
   margin-top: 10px;

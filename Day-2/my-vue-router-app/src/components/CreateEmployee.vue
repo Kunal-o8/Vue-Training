@@ -11,29 +11,25 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from "vue";
 import EmployeeService from "../services/EmployeeService";
+import { useRouter } from "vue-router";
 
-export default {
-  data() {
-    return {
-      employee: {
-        name: "",
-        salary: null,
-      },
-    };
-  },
-  methods: {
-    createEmployee() {
-      EmployeeService.createEmployee(this.employee)
-        .then(() => {
-          this.$router.push({ name: "EmployeeList" });
-        })
-        .catch((error) => {
-          console.error("Error creating employee:", error);
-        });
-    },
-  },
+const router = useRouter();
+const employee = ref({
+  name: "",
+  salary: null,
+});
+
+const createEmployee = () => {
+  EmployeeService.createEmployee(employee.value)
+    .then(() => {
+      router.push({ name: "EmployeeList" });
+    })
+    .catch((error) => {
+      console.error("Error creating employee:", error);
+    });
 };
 </script>
 

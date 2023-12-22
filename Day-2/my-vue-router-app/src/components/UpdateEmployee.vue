@@ -11,41 +11,37 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import EmployeeService from "../services/EmployeeService";
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-export default {
-  data() {
-    return {
-      employee: {},
-    };
-  },
-  mounted() {
-    this.loadEmployee();
-  },
-  methods: {
-    loadEmployee() {
-      const id = this.$route.params.id;
-      EmployeeService.getEmployee(id)
-        .then((response) => {
-          this.employee = response.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching employee details for update:", error);
-        });
-    },
-    updateEmployee() {
-      const id = this.$route.params.id;
-      EmployeeService.updateEmployee(id, this.employee)
-        .then(() => {
-          this.$router.push({ name: "EmployeeList" });
-        })
-        .catch((error) => {
-          console.error("Error updating employee:", error);
-        });
-    },
-  },
+const router = useRouter();
+const employee = ref({});
+const id = useRoute().params.id;
+const loadEmployee = () => {
+  EmployeeService.getEmployee(id)
+    .then((response) => {
+      employee.value = response.data;
+    })
+    .catch((error) => {
+      console.error("Error fetching employee details for update:", error);
+    });
 };
+
+const updateEmployee = () => {
+  EmployeeService.updateEmployee(id, employee.value)
+    .then(() => {
+      router.push({ name: "EmployeeList" });
+    })
+    .catch((error) => {
+      console.error("Error updating employee:", error);
+    });
+};
+
+onMounted(() => {
+  loadEmployee();
+});
 </script>
 
 <style scoped>

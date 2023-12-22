@@ -1,21 +1,19 @@
-import axios from "axios";
-
-const API_BASE_URL = "http://localhost:3000";
+import http from "../utils/http-common";
 
 export default {
   getEmployees() {
-    return axios.get(`${API_BASE_URL}/employees`);
+    return http.get(`/employees`);
   },
   getEmployee(id) {
-    return axios.get(`${API_BASE_URL}/employees/${id}`);
+    return http.get(`/employees/${id}`);
   },
   createEmployee(employee) {
-    return axios.post(`${API_BASE_URL}/employees`, employee);
+    return http.post(`/employees`, employee);
   },
   updateEmployee(id, employee) {
-    return axios.put(`${API_BASE_URL}/employees/${id}`, employee);
+    return http.put(`/employees/${id}`, employee);
   },
   deleteEmployee(id) {
-    return axios.delete(`${API_BASE_URL}/employees/${id}`);
+    return http.delete(`/employees/${id}`);
   },
 };

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Employee Management</h1>
     <nav>
       <router-link to="/">EmployeeList</router-link> |
       <router-link to="/create">CreateEmployee</router-link>
@@ -9,12 +10,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "App",
-};
-</script>
+<script setup></script>
 
 <style>
-/* Add your global styles here */
+h1 {
+  color: bisque;
+}
 </style>
