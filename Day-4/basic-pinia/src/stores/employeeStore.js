@@ -1,13 +1,8 @@
-// employeeStore.js
-
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useEmployeeStore = defineStore("employee", () => {
-  const employees = ref([
-    { id: 1, name: "test", salary: 45000 },
-    { id: 2, name: "test2", salary: 45000 },
-  ]);
+  const employees = ref([]);
 
   function createEmployee(employee) {
     employees.value.push(employee);
